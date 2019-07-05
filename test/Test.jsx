@@ -48,6 +48,14 @@ export default class Test extends Component {
                 onChange={this.onChange}
                 defaultValue={initialValue}
               />
+              <br />
+              <br />
+              <button
+                type="submit"
+                id="submit"
+              >
+                Submit
+              </button>
             </form>
           </main>
         </div>

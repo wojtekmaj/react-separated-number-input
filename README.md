@@ -60,7 +60,12 @@ Displays the input.
 |onChange|Defines the function to update the value when it changes in SeparatedNumberInput used as a controlled input.|`(event) => console.log(event.target.value);`|
 |value|Defines the value to display for SeparatedNumberInput used as a controlled input.|`(event) => console.log(event.target.value);`
 
-Note: You can also safely pass any other prop you would pass to `<input>` element.
+Note: You can also safely pass almost any other prop you would pass to `<input>` element. Exceptions are listed below.
+
+#### Unsupported props
+
+* `inputMode` - it's required for React-Separated-Number-Input to trigger numeric keyboard on mobile devices.
+* `pattern` - it's required for React-Separated-Number-Input to trigger numeric keyboard on iOS devices.
 
 ## License
 

@@ -6,6 +6,8 @@ import { groupCharacters, removeNonNumericChars, sum } from './utils';
 
 const baseClassName = 'react-separated-number-input';
 
+const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+
 export default class SeparatedNumberInput extends Component {
   state = {
     // eslint-disable-next-line react/destructuring-assignment
@@ -62,6 +64,33 @@ export default class SeparatedNumberInput extends Component {
     }
   }
 
+  onTouchStart = (event) => {
+    const { onTouchStart } = this.props;
+
+    if (iOS) {
+      // Sets pattern for iOS devices to trigger numeric keyboard
+      this.input.setAttribute('pattern', '\\d*');
+    }
+
+    if (onTouchStart) {
+      onTouchStart(event);
+    }
+  };
+
+  onTouchEnd = (event) => {
+    const { onTouchEnd } = this.props;
+
+    if (iOS) {
+      requestAnimationFrame(() => {
+        this.input.removeAttribute('pattern');
+      });
+    }
+
+    if (onTouchEnd) {
+      onTouchEnd(event);
+    }
+  };
+
   render() {
     const { formattedValue } = this;
     const {
@@ -69,6 +98,7 @@ export default class SeparatedNumberInput extends Component {
       defaultValue,
       groupLengths,
       onChange,
+      pattern, // eslint-disable-line react/prop-types
       value,
       ...otherProps
     } = this.props;
@@ -79,13 +109,17 @@ export default class SeparatedNumberInput extends Component {
         type="text"
         {...otherProps}
         className={mergeClassNames(baseClassName, className)}
+        inputMode="numeric"
         onChange={this.onChange}
+        onTouchStart={this.onTouchStart}
+        onTouchEnd={this.onTouchEnd}
         value={formattedValue}
-        pattern="\d*"
         ref={(ref) => {
           if (!ref) {
             return;
           }
+
+          this.input = ref;
 
           if (selectionStart !== null) {
             ref.setSelectionRange(selectionStart, selectionStart);
@@ -104,5 +138,7 @@ SeparatedNumberInput.propTypes = {
   defaultValue: PropTypes.string,
   groupLengths: PropTypes.arrayOf(PropTypes.number).isRequired,
   onChange: PropTypes.func,
+  onTouchEnd: PropTypes.func,
+  onTouchStart: PropTypes.func,
   value: PropTypes.string,
 };
