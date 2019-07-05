@@ -57,6 +57,7 @@ Displays the input.
 |----|----|----|
 |defaultValue|Defines the default value for SeparatedNumberInput used as an uncontrolled input.|`"1234"`|
 |groupLengths|Defines lengths of the groups the input should split the numbers into. For example, given `value` `"12345678"` and `groupLengths` `[1, 2, 3]` the input will display `1 23 456`.|`[4, 4, 4, 4]`|
+|inputRef|A function that behaves like ref, but it's passed to the `<input>` rendered by `<SeparatedNumberInput>` component.|`(ref) => { this.input = ref; }`|
 |onChange|Defines the function to update the value when it changes in SeparatedNumberInput used as a controlled input.|`(event) => console.log(event.target.value);`|
 |value|Defines the value to display for SeparatedNumberInput used as a controlled input.|`(event) => console.log(event.target.value);`
 
