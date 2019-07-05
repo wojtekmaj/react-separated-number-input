@@ -16,7 +16,7 @@
     "prop-types": "^15.6.0",
     "react": "^16.5.0",
     "react-dom": "^16.5.0",
-    "react-separated-number-input": "../"
+    "react-separated-number-input": "latest"
   },
   "devDependencies": {
     "@babel/core": "^7.1.0",
