@@ -50,6 +50,7 @@ export default class SeparatedNumberInput extends Component {
         {...otherProps}
         onChange={this.onChange}
         value={formattedValue}
+        pattern="\d*"
       />
     );
   }
