@@ -1,33 +1,29 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import SeparatedNumberInput from 'react-separated-number-input';
 
 import './Sample.less';
 
-export default class Sample extends Component {
-  state = {
-    value: '1234567812345678',
+export default function Sample() {
+  const [value, setValue] = useState('');
+
+  function onChange(event) {
+    setValue(event.target.value);
   }
 
-  onChange = event => this.setState({ value: event.target.value })
-
-  render() {
-    const { value } = this.state;
-
-    return (
-      <div className="Sample">
-        <header>
-          <h1>react-separated-number-input sample page</h1>
-        </header>
-        <div className="Sample__container">
-          <main className="Sample__container__content">
-            <SeparatedNumberInput
-              groupLengths={[4, 4, 4, 4]}
-              onChange={this.onChange}
-              value={value}
-            />
-          </main>
-        </div>
+  return (
+    <div className="Sample">
+      <header>
+        <h1>react-separated-number-input sample page</h1>
+      </header>
+      <div className="Sample__container">
+        <main className="Sample__container__content">
+          <SeparatedNumberInput
+            onChange={onChange}
+            groupLengths={[4, 4, 4, 4]}
+            value={value}
+          />
+        </main>
       </div>
-    );
-  }
+    </div>
+  );
 }
