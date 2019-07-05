@@ -1,6 +1,6 @@
 {
   "name": "react-separated-number-input",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A number input that automatically puts the separators in as you type.",
   "main": "dist/entry.js",
   "source": "src/entry.js",
