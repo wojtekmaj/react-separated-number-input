@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 
 import SeparatedNumberInput from './SeparatedNumberInput';
 
@@ -41,6 +41,20 @@ describe('<SeparatedNumberInput /> component', () => {
     const wrapperClassName = component.prop('className');
 
     expect(wrapperClassName.includes(className)).toBe(true);
+  });
+
+  it('passes container element to inputRef properly', () => {
+    const inputRef = jest.fn();
+
+    mount(
+      <SeparatedNumberInput
+        {...defaultProps}
+        inputRef={inputRef}
+      />,
+    );
+
+    expect(inputRef).toHaveBeenCalled();
+    expect(inputRef.mock.calls[0][0]).toBeInstanceOf(HTMLElement);
   });
 
   it('renders itself properly with defaultValue', () => {

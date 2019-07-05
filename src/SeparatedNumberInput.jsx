@@ -8,6 +8,32 @@ const baseClassName = 'react-separated-number-input';
 
 const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
 
+/**
+ * Allows to use multiple refs on a single React element.
+ * Supports both functions and ref objects created using createRef() and useRef().
+ *
+ * Usage:
+ * ```jsx
+ * <div ref={mergeRefs(ref1, ref2, ref3)} />
+ * ```
+ *
+ * @param {...Array<Function|Object>} inputRefs Array of refs
+ */
+function mergeRefs(...inputRefs) {
+  return (ref) => {
+    inputRefs.forEach((inputRef) => {
+      if (inputRef) {
+        if (inputRef instanceof Function) {
+          inputRef(ref);
+        } else {
+          // eslint-disable-next-line no-param-reassign
+          inputRef.current = ref;
+        }
+      }
+    });
+  };
+}
+
 export default class SeparatedNumberInput extends Component {
   state = {
     // eslint-disable-next-line react/destructuring-assignment
@@ -97,6 +123,7 @@ export default class SeparatedNumberInput extends Component {
       className,
       defaultValue,
       groupLengths,
+      inputRef,
       onChange,
       pattern, // eslint-disable-line react/prop-types
       value,
@@ -114,17 +141,20 @@ export default class SeparatedNumberInput extends Component {
         onTouchStart={this.onTouchStart}
         onTouchEnd={this.onTouchEnd}
         value={formattedValue}
-        ref={(ref) => {
-          if (!ref) {
-            return;
-          }
+        ref={mergeRefs(
+          inputRef,
+          (ref) => {
+            if (!ref) {
+              return;
+            }
 
-          this.input = ref;
+            this.input = ref;
 
-          if (selectionStart !== null) {
-            ref.setSelectionRange(selectionStart, selectionStart);
-          }
-        }}
+            if (selectionStart !== null) {
+              ref.setSelectionRange(selectionStart, selectionStart);
+            }
+          },
+        )}
       />
     );
   }
@@ -137,6 +167,10 @@ SeparatedNumberInput.propTypes = {
   ]),
   defaultValue: PropTypes.string,
   groupLengths: PropTypes.arrayOf(PropTypes.number).isRequired,
+  inputRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.object,
+  ]),
   onChange: PropTypes.func,
   onTouchEnd: PropTypes.func,
   onTouchStart: PropTypes.func,
