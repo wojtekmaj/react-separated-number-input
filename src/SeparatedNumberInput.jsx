@@ -22,13 +22,15 @@ const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
 function mergeRefs(...inputRefs) {
   return (ref) => {
     inputRefs.forEach((inputRef) => {
-      if (inputRef) {
-        if (inputRef instanceof Function) {
-          inputRef(ref);
-        } else {
-          // eslint-disable-next-line no-param-reassign
-          inputRef.current = ref;
-        }
+      if (!inputRef) {
+        return;
+      }
+
+      if (typeof inputRef === 'function') {
+        inputRef(ref);
+      } else {
+        // eslint-disable-next-line no-param-reassign
+        inputRef.current = ref;
       }
     });
   };
