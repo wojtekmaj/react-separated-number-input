@@ -54,7 +54,9 @@ export default class SeparatedNumberInput extends Component {
       value,
     });
 
-    onChange(event);
+    if (onChange) {
+      onChange(event);
+    }
   }
 
   render() {
