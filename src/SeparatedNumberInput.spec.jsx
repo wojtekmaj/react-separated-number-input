@@ -18,6 +18,31 @@ describe('<SeparatedNumberInput /> component', () => {
     expect(component.find('input')).toHaveLength(1);
   });
 
+  it('has default className applied', () => {
+    const component = shallow(
+      <SeparatedNumberInput {...defaultProps} />,
+    );
+
+    const wrapperClassName = component.prop('className');
+
+    expect(wrapperClassName.includes('react-separated-number-input')).toBe(true);
+  });
+
+  it('applies className to its wrapper when given a string', () => {
+    const className = 'testClassName';
+
+    const component = shallow(
+      <SeparatedNumberInput
+        {...defaultProps}
+        className={className}
+      />,
+    );
+
+    const wrapperClassName = component.prop('className');
+
+    expect(wrapperClassName.includes(className)).toBe(true);
+  });
+
   it('renders itself properly with defaultValue', () => {
     const component = shallow(
       <SeparatedNumberInput

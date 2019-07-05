@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import mergeClassNames from 'merge-class-names';
 
 import { groupCharacters, removeNonNumericChars, sum } from './utils';
+
+const baseClassName = 'react-separated-number-input';
 
 export default class SeparatedNumberInput extends Component {
   state = {
@@ -62,6 +65,7 @@ export default class SeparatedNumberInput extends Component {
   render() {
     const { formattedValue } = this;
     const {
+      className,
       defaultValue,
       groupLengths,
       onChange,
@@ -74,6 +78,7 @@ export default class SeparatedNumberInput extends Component {
       <input
         type="text"
         {...otherProps}
+        className={mergeClassNames(baseClassName, className)}
         onChange={this.onChange}
         value={formattedValue}
         pattern="\d*"
@@ -92,6 +97,10 @@ export default class SeparatedNumberInput extends Component {
 }
 
 SeparatedNumberInput.propTypes = {
+  className: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.arrayOf(PropTypes.string),
+  ]),
   defaultValue: PropTypes.string,
   groupLengths: PropTypes.arrayOf(PropTypes.number).isRequired,
   onChange: PropTypes.func,

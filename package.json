@@ -33,6 +33,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "merge-class-names": "^1.2.0",
     "prop-types": "^15.6.0"
   },
   "devDependencies": {
