@@ -8,7 +8,7 @@ export default class Sample extends Component {
     value: '1234567812345678',
   }
 
-  onChange = value => this.setState({ value })
+  onChange = event => this.setState({ value: event.target.value })
 
   render() {
     const { value } = this.state;
@@ -22,6 +22,7 @@ export default class Sample extends Component {
           <main className="Sample__container__content">
             <SeparatedNumberInput
               groupLengths={[4, 4, 4, 4]}
+              onChange={this.onChange}
               value={value}
             />
           </main>
