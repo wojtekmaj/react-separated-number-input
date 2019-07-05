@@ -1,0 +1,27 @@
+{
+  "extends": "airbnb",
+  "env": {
+    "browser": true,
+    "es6": true,
+    "jest": true
+  },
+  "parser": "babel-eslint",
+  "rules": {
+    "jsx-a11y/label-has-associated-control": ["error", { "required": { "some": ["id", "nesting"] }}],
+    "jsx-a11y/label-has-for": ["error", { "required": { "some": ["id", "nesting"] }}],
+    "prefer-destructuring": "warn",
+    "prefer-spread": "warn",
+    "react/require-default-props": "off"
+  },
+  "overrides": [
+    {
+      "files": [
+        "sample/**",
+        "test/**"
+      ],
+      "rules": {
+        "import/no-unresolved": "off"
+      }
+    }
+  ]
+}
