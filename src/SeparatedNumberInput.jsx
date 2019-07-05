@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { groupCharacters, removeNonNumericChars } from './utils';
+import { groupCharacters, removeNonNumericChars, sum } from './utils';
 
 export default class SeparatedNumberInput extends Component {
   state = {
     // eslint-disable-next-line react/destructuring-assignment
     value: this.props.defaultValue,
+    selectionStart: null,
   };
 
   get isControlled() {
@@ -28,9 +29,31 @@ export default class SeparatedNumberInput extends Component {
   }
 
   onChange = (event) => {
-    const { onChange } = this.props;
-    const { value } = event.target;
-    this.setState({ value });
+    const { groupLengths, onChange } = this.props;
+    const { selectionStart, value } = event.target;
+
+    const adjustedSelectionStart = (() => {
+      if (selectionStart === value.length) {
+        // User's cursor is at the end of input - no alignments necessary
+        return null;
+      }
+
+      const isCaretAfterSeparator = groupLengths.some((groupLength, index) => {
+        const separatorCount = index + 1;
+        const totalGroupLengthSoFar = sum(groupLengths.slice(0, separatorCount));
+        return totalGroupLengthSoFar + separatorCount === selectionStart;
+      });
+
+      const offset = this.formattedValue.length <= value.length ? 1 : -1;
+
+      return isCaretAfterSeparator ? selectionStart + offset : selectionStart;
+    })();
+
+    this.setState({
+      selectionStart: adjustedSelectionStart,
+      value,
+    });
+
     onChange(event);
   }
 
@@ -43,6 +66,7 @@ export default class SeparatedNumberInput extends Component {
       value,
       ...otherProps
     } = this.props;
+    const { selectionStart } = this.state;
 
     return (
       <input
@@ -51,6 +75,15 @@ export default class SeparatedNumberInput extends Component {
         onChange={this.onChange}
         value={formattedValue}
         pattern="\d*"
+        ref={(ref) => {
+          if (!ref) {
+            return;
+          }
+
+          if (selectionStart !== null) {
+            ref.setSelectionRange(selectionStart, selectionStart);
+          }
+        }}
       />
     );
   }

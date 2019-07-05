@@ -29,3 +29,7 @@ export function removeNonNumericChars(string) {
 
   return string.replace(/[^\d]/g, '');
 }
+
+export function sum(arr) {
+  return arr.reduce((res, el) => res + el, 0);
+}
