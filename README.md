@@ -39,6 +39,7 @@ function MyApp() {
   return (
     <SeparatedNumberInput
       onChange={onChange}
+      groupLengths={[4, 4, 4, 4]}
       value={value}
     />
   );
