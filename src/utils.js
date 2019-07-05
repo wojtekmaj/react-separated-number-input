@@ -5,18 +5,14 @@
  * @param {*} groupLengths
  */
 export function groupCharacters(string, groupLengths) {
-  if (!string) {
-    return string;
-  }
-
-  if (!groupLengths) {
+  if (!string || !groupLengths) {
     return [string];
   }
 
   let i = 0;
   const result = [];
   groupLengths.forEach((groupLength) => {
-    const characterGroup = string.slice(i, i + groupLength);
+    const characterGroup = string && string.slice(i, i + groupLength);
     if (characterGroup) {
       result.push(characterGroup);
     }

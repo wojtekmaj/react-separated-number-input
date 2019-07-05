@@ -5,9 +5,15 @@ import {
 
 describe('groupCharacters()', () => {
   it('returns nothing given nothing', () => {
-    const result = groupCharacters();
+    const result = groupCharacters('');
 
-    expect(result).toBe(undefined);
+    expect(result).toEqual(['']);
+  });
+
+  it('returns empty array given empty string', () => {
+    const result = groupCharacters('', [2, 2, 4]);
+
+    expect(result).toEqual(['']);
   });
 
   it('returns one group given no groupLengths', () => {
@@ -34,6 +40,12 @@ describe('removeNonNumericChars()', () => {
     const result = removeNonNumericChars();
 
     expect(result).toBe(undefined);
+  });
+
+  it('returns empty string given empty string', () => {
+    const result = removeNonNumericChars('');
+
+    expect(result).toBe('');
   });
 
   it('removes non-numeric characters properly', () => {
