@@ -140,9 +140,8 @@ export default class SeparatedNumberInput extends Component {
         className={mergeClassNames(baseClassName, className)}
         inputMode="numeric"
         onChange={this.onChange}
-        onTouchStart={this.onTouchStart}
         onTouchEnd={this.onTouchEnd}
-        value={formattedValue}
+        onTouchStart={this.onTouchStart}
         ref={mergeRefs(
           inputRef,
           (ref) => {
@@ -157,6 +156,7 @@ export default class SeparatedNumberInput extends Component {
             }
           },
         )}
+        value={formattedValue}
       />
     );
   }

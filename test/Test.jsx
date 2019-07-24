@@ -44,15 +44,15 @@ export default class Test extends Component {
               />
               <p>Uncontrolled:</p>
               <SeparatedNumberInput
+                defaultValue={initialValue}
                 groupLengths={[2, 3, 3, 3]}
                 onChange={this.onChange}
-                defaultValue={initialValue}
               />
               <br />
               <br />
               <button
-                type="submit"
                 id="submit"
+                type="submit"
               >
                 Submit
               </button>
