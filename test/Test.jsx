@@ -50,20 +50,20 @@ export default class Test extends Component {
               />
               <p>format - controlled:</p>
               <SeparatedNumberInput
-                format="00 000 000 000"
+                format="## ### ### ###"
                 onChange={this.onChange}
                 value={value}
               />
               <p>format - uncontrolled:</p>
               <SeparatedNumberInput
                 defaultValue={initialValue}
-                format="00 000 000 000"
+                format="## ### ### ###"
                 onChange={this.onChange}
               />
               <p>format with hash character</p>
               <SeparatedNumberInput
                 defaultValue="345"
-                format="#000"
+                format="$###"
               />
               <p>With pattern:</p>
               <SeparatedNumberInput

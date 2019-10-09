@@ -1,12 +1,12 @@
 /**
  * Changes an array of group lengths into a string-based number format.
- * For example, [1, 2, 3] will be changed into "0 00 000".
+ * For example, [1, 2, 3] will be changed into "# ## ###".
  *
  * @param {Number[]} groupLengths
  */
 export function groupLengthsToFormat(groupLengths) {
   return groupLengths.reduce(
-    (result, groupLength, index) => `${result}${index ? ' ' : ''}${'0'.repeat(groupLength)}`,
+    (result, groupLength, index) => `${result}${index ? ' ' : ''}${'#'.repeat(groupLength)}`,
     '',
   );
 }
@@ -25,7 +25,7 @@ export function formatValue(string, format) {
   let i = 0;
 
   return format
-    .split('0')
+    .split('#')
     .map((el) => {
       // eslint-disable-next-line no-plusplus
       const char = string[i++];
