@@ -48,6 +48,11 @@ export default class Test extends Component {
                 format="## ### ### ###"
                 onChange={this.onChange}
               />
+              <p>number</p>
+              <SeparatedNumberInput
+                defaultValue="0512345678"
+                format="(##) #### ## ##"
+              />
               <p>number with prefix</p>
               <SeparatedNumberInput
                 defaultValue="12345678"
