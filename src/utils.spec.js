@@ -1,37 +1,37 @@
 import {
-  groupCharacters,
+  formatValue,
   removeNonNumericChars,
 } from './utils';
 
-describe('groupCharacters()', () => {
+describe('formatValue()', () => {
   it('returns nothing given nothing', () => {
-    const result = groupCharacters('');
+    const result = formatValue('');
 
-    expect(result).toEqual(['']);
+    expect(result).toEqual('');
   });
 
   it('returns empty array given empty string', () => {
-    const result = groupCharacters('', [2, 2, 4]);
+    const result = formatValue('', '00 00 0000');
 
-    expect(result).toEqual(['']);
+    expect(result).toEqual('');
   });
 
-  it('returns one group given no groupLengths', () => {
-    const result = groupCharacters('12345678');
+  it('returns one group given no format', () => {
+    const result = formatValue('12345678');
 
-    expect(result).toEqual(['12345678']);
+    expect(result).toEqual('12345678');
   });
 
-  it('groups characters properly given groupLengths', () => {
-    const result = groupCharacters('12345678', [2, 2, 4]);
+  it('groups characters properly given format', () => {
+    const result = formatValue('12345678', '00 00 0000');
 
-    expect(result).toEqual(['12', '34', '5678']);
+    expect(result).toEqual('12 34 5678');
   });
 
-  it('ignores the characters above the sum of groupLengths', () => {
-    const result = groupCharacters('1234567890', [2, 2, 4]);
+  it('ignores the characters above the sum of format', () => {
+    const result = formatValue('1234567890', '00 00 0000');
 
-    expect(result).toEqual(['12', '34', '5678']);
+    expect(result).toEqual('12 34 5678');
   });
 });
 

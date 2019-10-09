@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import mergeClassNames from 'merge-class-names';
 
-import { groupCharacters, removeNonNumericChars, sum } from './utils';
+import {
+  formatValue,
+  groupLengthsToFormat,
+  removeNonNumericChars,
+} from './utils';
 
 const baseClassName = 'react-separated-number-input';
 
@@ -51,22 +55,26 @@ export default class SeparatedNumberInput extends Component {
     return 'value' in this.props;
   }
 
+  get format() {
+    const { format, groupLengths } = this.props;
+
+    return format || groupLengthsToFormat(groupLengths);
+  }
+
   get value() {
     // eslint-disable-next-line react/destructuring-assignment
     return this.isControlled ? this.props.value : this.state.value;
   }
 
   get formattedValue() {
-    const { value } = this;
-    const { groupLengths } = this.props;
+    const { format, value } = this;
     const valueNumbersOnly = removeNonNumericChars(value);
-    const valueGroup = groupCharacters(valueNumbersOnly, groupLengths);
-    const formattedValue = valueGroup.join(' ');
-    return formattedValue;
+    return formatValue(valueNumbersOnly, format);
   }
 
   onChange = (event) => {
-    const { groupLengths, onChange } = this.props;
+    const { formattedValue } = this;
+    const { onChange } = this.props;
     const { selectionStart, value } = event.target;
 
     const adjustedSelectionStart = (() => {
@@ -75,13 +83,10 @@ export default class SeparatedNumberInput extends Component {
         return null;
       }
 
-      const isCaretAfterSeparator = groupLengths.some((groupLength, index) => {
-        const separatorCount = index + 1;
-        const totalGroupLengthSoFar = sum(groupLengths.slice(0, separatorCount));
-        return totalGroupLengthSoFar + separatorCount === selectionStart;
-      });
+      const characterAdded = formattedValue ? formattedValue.length <= value.length : true;
+      const isCaretAfterSeparator = value[characterAdded ? selectionStart : selectionStart - 1] === ' ';
 
-      const offset = this.formattedValue.length <= value.length ? 1 : -1;
+      const offset = (formattedValue && formattedValue.length <= value.length) ? 1 : -1;
 
       return isCaretAfterSeparator ? selectionStart + offset : selectionStart;
     })();
@@ -132,6 +137,7 @@ export default class SeparatedNumberInput extends Component {
     const {
       className,
       defaultValue,
+      format,
       groupLengths,
       inputRef,
       onChange,
@@ -169,13 +175,19 @@ export default class SeparatedNumberInput extends Component {
   }
 }
 
+const isValue = PropTypes.oneOfType([
+  PropTypes.string,
+  PropTypes.number,
+]);
+
 SeparatedNumberInput.propTypes = {
   className: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.arrayOf(PropTypes.string),
   ]),
-  defaultValue: PropTypes.string,
-  groupLengths: PropTypes.arrayOf(PropTypes.number).isRequired,
+  defaultValue: isValue,
+  format: PropTypes.string,
+  groupLengths: PropTypes.arrayOf(PropTypes.number),
   inputRef: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.object,
@@ -184,5 +196,5 @@ SeparatedNumberInput.propTypes = {
   onTouchEnd: PropTypes.func,
   onTouchStart: PropTypes.func,
   pattern: PropTypes.string,
-  value: PropTypes.string,
+  value: isValue,
 };

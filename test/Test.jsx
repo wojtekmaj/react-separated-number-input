@@ -36,16 +36,28 @@ export default class Test extends Component {
                 /* eslint-enable no-console */
               }}
             >
-              <p>Controlled:</p>
+              <p>groupLengths - controlled:</p>
               <SeparatedNumberInput
                 groupLengths={[2, 3, 3, 3]}
                 onChange={this.onChange}
                 value={value}
               />
-              <p>Uncontrolled:</p>
+              <p>groupLengths - uncontrolled:</p>
               <SeparatedNumberInput
                 defaultValue={initialValue}
                 groupLengths={[2, 3, 3, 3]}
+                onChange={this.onChange}
+              />
+              <p>format - controlled:</p>
+              <SeparatedNumberInput
+                format="00 000 000 000"
+                onChange={this.onChange}
+                value={value}
+              />
+              <p>format - uncontrolled:</p>
+              <SeparatedNumberInput
+                defaultValue={initialValue}
+                format="00 000 000 000"
                 onChange={this.onChange}
               />
               <p>With pattern:</p>
