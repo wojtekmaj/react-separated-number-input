@@ -22,19 +22,17 @@ export function formatValue(string, format) {
     return string;
   }
 
-  let result = '';
+  let i = 0;
 
-  for (let formatIndex = 0, stringIndex = 0; formatIndex < format.length; formatIndex += 1) {
-    if (stringIndex >= string.length) {
-      break;
-    }
-
-    const char = format[formatIndex];
-    // eslint-disable-next-line no-plusplus
-    result += char === '0' ? string[stringIndex++] : char;
-  }
-
-  return result;
+  return format
+    .split('0')
+    .map((el) => {
+      // eslint-disable-next-line no-plusplus
+      const char = string[i++];
+      return char ? (el + char) : '';
+    })
+    .join('')
+    .slice(0, format.length);
 }
 
 export function removeNonNumericChars(string) {

@@ -28,10 +28,16 @@ describe('formatValue()', () => {
     expect(result).toEqual('12 34 5678');
   });
 
-  it('ignores the characters above the sum of format', () => {
+  it('ignores the characters above the format character count', () => {
     const result = formatValue('1234567890', '00 00 0000');
 
     expect(result).toEqual('12 34 5678');
+  });
+
+  it('ignores non-numeric characters above the format character count', () => {
+    const result = formatValue('1234', '00 00 0000');
+
+    expect(result).toEqual('12 34');
   });
 });
 

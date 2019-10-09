@@ -60,6 +60,11 @@ export default class Test extends Component {
                 format="00 000 000 000"
                 onChange={this.onChange}
               />
+              <p>format with hash character</p>
+              <SeparatedNumberInput
+                defaultValue="345"
+                format="#000"
+              />
               <p>With pattern:</p>
               <SeparatedNumberInput
                 defaultValue={initialValue}
