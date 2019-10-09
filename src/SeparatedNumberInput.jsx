@@ -2,11 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import mergeClassNames from 'merge-class-names';
 
-import {
-  formatValue,
-  groupLengthsToFormat,
-  removeNonNumericChars,
-} from './utils';
+import { formatValue, removeNonNumericChars } from './utils';
 
 const baseClassName = 'react-separated-number-input';
 
@@ -55,21 +51,16 @@ export default class SeparatedNumberInput extends Component {
     return 'value' in this.props;
   }
 
-  get format() {
-    const { format, groupLengths } = this.props;
-
-    return format || groupLengthsToFormat(groupLengths);
-  }
-
   get value() {
     // eslint-disable-next-line react/destructuring-assignment
     return this.isControlled ? this.props.value : this.state.value;
   }
 
   get formattedValue() {
-    const { format, value } = this;
+    const { value } = this;
+    const { format, replacementCharacter } = this.props;
     const valueNumbersOnly = removeNonNumericChars(value);
-    return formatValue(valueNumbersOnly, format);
+    return formatValue(valueNumbersOnly, format, replacementCharacter);
   }
 
   onChange = (event) => {
@@ -138,9 +129,9 @@ export default class SeparatedNumberInput extends Component {
       className,
       defaultValue,
       format,
-      groupLengths,
       inputRef,
       onChange,
+      replacementCharacter,
       value,
       ...otherProps
     } = this.props;
@@ -175,6 +166,10 @@ export default class SeparatedNumberInput extends Component {
   }
 }
 
+SeparatedNumberInput.defaultProps = {
+  replacementCharacter: '#',
+};
+
 const isValue = PropTypes.oneOfType([
   PropTypes.string,
   PropTypes.number,
@@ -187,7 +182,6 @@ SeparatedNumberInput.propTypes = {
   ]),
   defaultValue: isValue,
   format: PropTypes.string,
-  groupLengths: PropTypes.arrayOf(PropTypes.number),
   inputRef: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.object,
@@ -196,5 +190,6 @@ SeparatedNumberInput.propTypes = {
   onTouchEnd: PropTypes.func,
   onTouchStart: PropTypes.func,
   pattern: PropTypes.string,
+  replacementCharacter: PropTypes.string,
   value: isValue,
 };

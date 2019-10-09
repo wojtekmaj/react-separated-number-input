@@ -1,23 +1,11 @@
 /**
- * Changes an array of group lengths into a string-based number format.
- * For example, [1, 2, 3] will be changed into "# ## ###".
- *
- * @param {Number[]} groupLengths
- */
-export function groupLengthsToFormat(groupLengths) {
-  return groupLengths.reduce(
-    (result, groupLength, index) => `${result}${index ? ' ' : ''}${'#'.repeat(groupLength)}`,
-    '',
-  );
-}
-
-/**
  * Formats string value using given format.
  *
  * @param {String} string
  * @param {String} format
+ * @param {String} replacementCharacter
  */
-export function formatValue(string, format) {
+export function formatValue(string, format, replacementCharacter) {
   if (!string || !format) {
     return string;
   }
@@ -25,7 +13,7 @@ export function formatValue(string, format) {
   let i = 0;
 
   return format
-    .split('#')
+    .split(replacementCharacter)
     .map((el) => {
       // eslint-disable-next-line no-plusplus
       const char = string[i++];

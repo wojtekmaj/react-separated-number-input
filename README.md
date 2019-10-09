@@ -57,10 +57,10 @@ Displays the input.
 |Prop name|Description|Example values|
 |----|----|----|
 |defaultValue|Defines the default value for SeparatedNumberInput used as an uncontrolled input.|`"1234"`|
-|format|Defines the number format. For example, given `value` `"12345678"` and `format` `# ## ###` the input will display `1 23 456`. If provided, `groupLengths` prop will be ignored.|`"#### #### #### ####"`|
-|groupLengths|Defines lengths of the groups the input should split the numbers into. For example, given `value` `"12345678"` and `groupLengths` `[1, 2, 3]` the input will display `1 23 456`.|`[4, 4, 4, 4]`|
+|format|Defines the number format. For example, given `value` `"12345678"` and `format` `# ## ###` the input will display `1 23 456`.|`"#### #### #### ####"`|
 |inputRef|A function that behaves like ref, but it's passed to the `<input>` rendered by `<SeparatedNumberInput>` component.|`(ref) => { this.input = ref; }`|
 |onChange|Defines the function to update the value when it changes in SeparatedNumberInput used as a controlled input.|`(event) => console.log(event.target.value);`|
+|replacementCharacter|Defines which character in given `format` gets replaced with numbers. Defaults to `"#"`.|`"0"`|
 |value|Defines the value to display for SeparatedNumberInput used as a controlled input.|`"1234"`
 
 Note: You can also safely pass almost any other prop you would pass to `<input>` element. Exceptions are listed below.

@@ -11,31 +11,31 @@ describe('formatValue()', () => {
   });
 
   it('returns empty array given empty string', () => {
-    const result = formatValue('', '00 00 0000');
+    const result = formatValue('', '## ## ####', '#');
 
     expect(result).toEqual('');
   });
 
   it('returns one group given no format', () => {
-    const result = formatValue('12345678');
+    const result = formatValue('12345678', undefined, '#');
 
     expect(result).toEqual('12345678');
   });
 
   it('groups characters properly given format', () => {
-    const result = formatValue('12345678', '00 00 0000');
+    const result = formatValue('12345678', '## ## ####', '#');
 
     expect(result).toEqual('12 34 5678');
   });
 
   it('ignores the characters above the format character count', () => {
-    const result = formatValue('1234567890', '00 00 0000');
+    const result = formatValue('1234567890', '## ## ####', '#');
 
     expect(result).toEqual('12 34 5678');
   });
 
   it('ignores non-numeric characters above the format character count', () => {
-    const result = formatValue('1234', '00 00 0000');
+    const result = formatValue('1234', '## ## ####', '#');
 
     expect(result).toEqual('12 34');
   });
