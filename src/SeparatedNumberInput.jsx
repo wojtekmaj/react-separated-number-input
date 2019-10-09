@@ -59,32 +59,41 @@ export default class SeparatedNumberInput extends Component {
   get formattedValue() {
     const { value } = this;
     const { format, replacementCharacter } = this.props;
-    const valueNumbersOnly = removeNonNumericChars(value);
-    return formatValue(valueNumbersOnly, format, replacementCharacter);
+    return formatValue(value, format, replacementCharacter);
   }
 
   onChange = (event) => {
-    const { formattedValue } = this;
-    const { onChange } = this.props;
-    const { selectionStart, value } = event.target;
+    const { value } = this;
+    const { format, onChange } = this.props;
+    const { selectionStart, value: inputValue } = event.target;
+
+    // TODO: That's not ideal, what if we added a character at the beginning?
+    const nextValue = (() => {
+      let result = '';
+      inputValue.split('').forEach((char, index) => {
+        if (char !== format[index]) {
+          result += char;
+        }
+      });
+      return removeNonNumericChars(result);
+    })();
 
     const adjustedSelectionStart = (() => {
-      if (selectionStart === value.length) {
+      if (selectionStart === inputValue.length) {
         // User's cursor is at the end of input - no alignments necessary
         return null;
       }
 
-      const characterAdded = formattedValue ? formattedValue.length <= value.length : true;
-      const isCaretAfterSeparator = value[characterAdded ? selectionStart : selectionStart - 1] === ' ';
-
-      const offset = (formattedValue && formattedValue.length <= value.length) ? 1 : -1;
+      const characterAdded = (value ? value.length <= nextValue.length : true);
+      const isCaretAfterSeparator = inputValue[selectionStart - characterAdded ? 0 : 1] === ' ';
+      const offset = characterAdded ? 1 : -1;
 
       return isCaretAfterSeparator ? selectionStart + offset : selectionStart;
     })();
 
     this.setState({
       selectionStart: adjustedSelectionStart,
-      value,
+      value: nextValue,
     });
 
     if (onChange) {
