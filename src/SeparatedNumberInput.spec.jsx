@@ -5,7 +5,7 @@ import SeparatedNumberInput from './SeparatedNumberInput';
 
 describe('<SeparatedNumberInput /> component', () => {
   const defaultProps = {
-    groupLengths: [4, 4, 4, 4],
+    format: '#### #### #### ####',
   };
 
   it('renders itself properly', () => {
