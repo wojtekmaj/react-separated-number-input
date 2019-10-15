@@ -106,11 +106,15 @@ export default class SeparatedNumberInput extends Component {
   };
 
   onTouchEnd = (event) => {
-    const { onTouchEnd } = this.props;
+    const { onTouchEnd, pattern } = this.props;
 
     if (iOS) {
       requestAnimationFrame(() => {
-        this.input.removeAttribute('pattern');
+        if (pattern) {
+          this.input.setAttribute('pattern', pattern);
+        } else {
+          this.input.removeAttribute('pattern');
+        }
       });
     }
 
@@ -127,7 +131,6 @@ export default class SeparatedNumberInput extends Component {
       groupLengths,
       inputRef,
       onChange,
-      pattern, // eslint-disable-line react/prop-types
       value,
       ...otherProps
     } = this.props;
@@ -176,5 +179,6 @@ SeparatedNumberInput.propTypes = {
   onChange: PropTypes.func,
   onTouchEnd: PropTypes.func,
   onTouchStart: PropTypes.func,
+  pattern: PropTypes.string,
   value: PropTypes.string,
 };
