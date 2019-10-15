@@ -43,6 +43,21 @@ describe('<SeparatedNumberInput /> component', () => {
     expect(wrapperClassName.includes(className)).toBe(true);
   });
 
+  it('applies pattern to its wrapper when given a string', () => {
+    const pattern = '[0-9]{8}';
+
+    const component = shallow(
+      <SeparatedNumberInput
+        {...defaultProps}
+        pattern={pattern}
+      />,
+    );
+
+    const wrapperPattern = component.prop('pattern');
+
+    expect(wrapperPattern).toBe(pattern);
+  });
+
   it('passes container element to inputRef properly', () => {
     const inputRef = jest.fn();
 
