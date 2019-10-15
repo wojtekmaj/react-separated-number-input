@@ -67,7 +67,6 @@ Note: You can also safely pass almost any other prop you would pass to `<input>`
 #### Unsupported props
 
 * `inputMode` - it's required for React-Separated-Number-Input to trigger numeric keyboard on mobile devices.
-* `pattern` - it's required for React-Separated-Number-Input to trigger numeric keyboard on iOS devices.
 
 ## License
 
