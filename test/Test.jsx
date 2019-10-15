@@ -48,6 +48,12 @@ export default class Test extends Component {
                 groupLengths={[2, 3, 3, 3]}
                 onChange={this.onChange}
               />
+              <p>With pattern:</p>
+              <SeparatedNumberInput
+                defaultValue={initialValue}
+                groupLengths={[2, 3, 3, 3]}
+                pattern="^[0-9]{2} [0-9]{3} [0-9]{3} [0-9]{3}$"
+              />
               <br />
               <br />
               <button
