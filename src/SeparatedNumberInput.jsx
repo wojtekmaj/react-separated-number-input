@@ -6,6 +6,10 @@ import { groupCharacters, removeNonNumericChars, sum } from './utils';
 
 const baseClassName = 'react-separated-number-input';
 
+/**
+ * On iOS 12 and lower, inputmode="numeric" is not supported, so pattern="\d*"
+ * needs to be set instead for a split second to tirgger the right keyboard.
+ */
 const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
 
 /**
