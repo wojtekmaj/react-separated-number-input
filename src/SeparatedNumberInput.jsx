@@ -86,6 +86,7 @@ export default class SeparatedNumberInput extends Component {
 
       const characterAdded = (value ? value.length <= nextValue.length : true);
       const isCaretAfterSeparator = inputValue[selectionStart - characterAdded ? 0 : 1] === ' ';
+      // TODO: Now that format can have more than one characters between numbers, we need to measure it
       const offset = characterAdded ? 1 : -1;
 
       return isCaretAfterSeparator ? selectionStart + offset : selectionStart;
