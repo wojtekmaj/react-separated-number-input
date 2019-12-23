@@ -56,15 +56,29 @@ export default class SeparatedNumberInput extends Component {
     return this.isControlled ? this.props.value : this.state.value;
   }
 
+  get format() {
+    if ('format' in this.props) {
+      const { format } = this.props;
+      return format;
+    }
+
+    if ('groupLengths' in this.props) {
+      const { groupLengths } = this.props;
+      return groupLengths.reduce((str, num, index) => str + (index ? ' ' : '') + '#'.repeat(num), '');
+    }
+
+    return undefined;
+  }
+
   get formattedValue() {
-    const { value } = this;
-    const { format, replacementCharacter } = this.props;
+    const { format, value } = this;
+    const { replacementCharacter } = this.props;
     return formatValue(value, format, replacementCharacter);
   }
 
   onChange = (event) => {
-    const { value } = this;
-    const { format, onChange } = this.props;
+    const { format, value } = this;
+    const { onChange } = this.props;
     const { selectionStart, value: inputValue } = event.target;
 
     // TODO: That's not ideal, what if we added a character at the beginning?
@@ -139,6 +153,7 @@ export default class SeparatedNumberInput extends Component {
       className,
       defaultValue,
       format,
+      groupLengths,
       inputRef,
       onChange,
       replacementCharacter,
@@ -192,6 +207,7 @@ SeparatedNumberInput.propTypes = {
   ]),
   defaultValue: isValue,
   format: PropTypes.string,
+  groupLengths: PropTypes.arrayOf(PropTypes.number),
   inputRef: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.object,
