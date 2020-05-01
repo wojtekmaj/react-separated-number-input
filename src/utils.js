@@ -1,8 +1,9 @@
 /**
  * Splits string into pieces of defined lengths.
  *
- * @param {*} string
- * @param {*} groupLengths
+ * @param {string} string String to split
+ * @param {number[]} groupLengths Group lengths
+ * @returns {string[]} String pieces of defined lengths
  */
 export function groupCharacters(string, groupLengths) {
   if (!string || !groupLengths) {
