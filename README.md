@@ -1,4 +1,4 @@
-![downloads](https://img.shields.io/npm/dt/react-separated-number-input.svg) ![build](https://img.shields.io/travis/wojtekmaj/react-separated-number-input/master.svg) ![dependencies](https://img.shields.io/david/wojtekmaj/react-separated-number-input.svg
+[![npm](https://img.shields.io/npm/v/react-separated-number-input.svg)](https://www.npmjs.com/package/react-separated-number-input) ![downloads](https://img.shields.io/npm/dt/react-separated-number-input.svg) ![downloads](https://img.shields.io/npm/dt/react-separated-number-input.svg) ![build](https://travis-ci.com/wojtekmaj/react-separated-number-input.svg?branch=master) ![dependencies](https://img.shields.io/david/wojtekmaj/react-separated-number-input.svg
 ) ![dev dependencies](https://img.shields.io/david/dev/wojtekmaj/react-separated-number-input.svg
 ) [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest)
 
