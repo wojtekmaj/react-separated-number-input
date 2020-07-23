@@ -13,7 +13,7 @@ A number input that automatically puts the separators in as you type.
 
 ## Demo
 
-Minimal demo page is included in sample directory.
+A minimal demo page can be found in `sample` directory.
 
 [Online demo](http://projects.wojtekmaj.pl/react-separated-number-input/) is also available!
 
@@ -62,11 +62,11 @@ Displays the input.
 |onChange|Defines the function to update the value when it changes in SeparatedNumberInput used as a controlled input.|`(event) => console.log(event.target.value);`|
 |value|Defines the value to display for SeparatedNumberInput used as a controlled input.|`"1234"`
 
-Note: You can also safely pass almost any other prop you would pass to `<input>` element. Exceptions are listed below.
+Note: You can also safely pass almost any other prop you would pass to an `<input>` element. Exceptions are listed below.
 
 #### Unsupported props
 
-* `inputMode` - it's required for React-Separated-Number-Input to trigger numeric keyboard on mobile devices.
+* `inputMode` - it's required for React-Separated-Number-Input to trigger a numeric keyboard on mobile devices.
 
 ## License
 
