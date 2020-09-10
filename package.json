@@ -4,6 +4,10 @@
   "description": "A number input that automatically puts the separators in as you type.",
   "main": "dist/entry.js",
   "source": "src/entry.js",
+  "workspaces": [
+    ".",
+    "test"
+  ],
   "scripts": {
     "build": "babel src -d dist --ignore **/*.spec.js,**/*.spec.jsx",
     "clean": "rimraf dist",
