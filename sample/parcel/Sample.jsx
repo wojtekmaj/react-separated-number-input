@@ -8,7 +8,7 @@ export default class Sample extends Component {
     value: '1234567812345678',
   }
 
-  onChange = event => this.setState({ value: event.target.value })
+  onChange = (event) => this.setState({ value: event.target.value })
 
   render() {
     const { value } = this.state;
